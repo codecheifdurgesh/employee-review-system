@@ -27,7 +27,20 @@ module.exports.signin=function(req,res,err){
 
 }
 module.exports.signup=function(req,res,err){
+
+    if(req.cookies.emp_id){
+        Employee.findById(req.cookies.emp_id,function(err,emp){
+            if(emp){
+                return res.redirect('back');
+            }
+            else{
+                return res.render('emp_sign_in');
+            }
+        })
+    }
+    else{
     return res.render('emp_sign_up');
+    }
 }
 
 module.exports.create=function(req,res,err){
