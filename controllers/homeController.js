@@ -3,15 +3,37 @@ const app = express();
 const Employee=require('../models/employee');
 
 module.exports.home=function(req,res,err){
-    return res.render('home');
+    let Emp=req.user;
+
+  
+    return res.render(
+        'home',
+        {
+    
+    emp:Emp,
+}
+    );
 }
 
 module.exports.signin=function(req,res,err){
+
+    if(req.isAuthenticated()){
+        return res.redirect('/');
+    }
+    else{
     return res.render('emp_sign_in');
+    }
 
 }
+
+
 module.exports.signup=function(req,res,err){
+    if(req.isAuthenticated()){
+        return res.redirect('/');
+    }
+    else{
     return res.render('emp_sign_up');
+    }
 }
 
 module.exports.create=function(req,res,err){
@@ -31,15 +53,24 @@ module.exports.create=function(req,res,err){
                     console.log("Error in creating the user");
                     return ; 
                 }
-                return res.redirect('/create-session');
+                console.log("employee created succesfully");
+                return res.render('emp_sign_in');
             })
         }
         else{
-        return res.redirect('/create-session');
+            console.log("employee exists");
+        return res.render('emp_sign_in');
         }
 })
 }
 
 module.exports.createSession=function(req,res,err){
-    return res.render('emp_sign_in');
+    return res.redirect('/');
+}
+
+module.exports.destroySession=function(req,res){
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+      });
 }
