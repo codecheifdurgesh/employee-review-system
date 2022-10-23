@@ -10,10 +10,11 @@ const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 
 
-
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
+app.use(express.static('assets'));
 
 app.set('view engine', 'ejs');
 app.set('views', './views');

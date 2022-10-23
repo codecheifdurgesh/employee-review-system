@@ -17,7 +17,9 @@ function(email,password,done){
             console.log("Invalod username");
             return done(null,false);
         }
+        
         return done(null,emp);
+     
     });
 }
 ));

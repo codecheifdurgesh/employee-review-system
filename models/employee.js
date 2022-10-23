@@ -16,12 +16,13 @@ const employeeSchema=mongoose.Schema(
             type:String,
             required:true
         },
-        admin:{
-            type:Boolean,
+        isadmin:{
+            type:String,
             
         },
         review:[{
-            'empname':String
+            'empname':String,
+            'empemail':String,
         }],
         myReviews:[{
             'from':String,
